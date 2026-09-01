@@ -32,3 +32,8 @@ processing, transforming, and analyzing airline operational data.
 - Tidal
 - Outlook
 - Sandbox
+
+
+## Current Status
+
+Initial project setup and GitHub repository configuration completed.
