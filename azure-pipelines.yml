@@ -7,9 +7,10 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+
 - script: |
-    echo "Travel360 Pipeline Started"
-    echo "Checking Travel360 dbt project..."
-    ls -la
-    echo "Pipeline execution successful"
-  displayName: 'Test Travel360 Pipeline'
+    python --version
+    python -m pip install --upgrade pip
+    pip install dbt-snowflake
+    dbt --version
+  displayName: 'Install and Verify dbt'
