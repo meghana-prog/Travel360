@@ -14,3 +14,10 @@ steps:
     pip install dbt-snowflake
     dbt --version
   displayName: 'Install and Verify dbt'
+
+- script: |
+    cd travel360_dbt
+    echo "Inside Travel360 dbt project"
+    ls -la
+    dbt debug --config-dir
+  displayName: 'Check Travel360 dbt Project'
