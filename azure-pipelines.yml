@@ -8,6 +8,7 @@ pool:
 
 steps:
 
+# Step 1: Install and verify dbt
 - script: |
     python --version
     python -m pip install --upgrade pip
@@ -15,9 +16,16 @@ steps:
     dbt --version
   displayName: 'Install and Verify dbt'
 
+# Step 2: Check Travel360 dbt project
 - script: |
     cd travel360_dbt
     echo "Inside Travel360 dbt project"
     ls -la
     dbt debug --config-dir
   displayName: 'Check Travel360 dbt Project'
+
+# Step 3: Run the staging model
+- script: |
+    cd travel360_dbt
+    dbt run --select stg_customers
+  displayName: 'Run stg_customers'
