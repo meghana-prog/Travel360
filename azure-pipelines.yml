@@ -6,6 +6,6 @@ pool:
 
 steps:
 - script: |
-    echo "Hello Travel360"
+    echo "Hello Travel360 - Version 2"
     echo "My first Azure Pipeline is running"
   displayName: 'Run Travel360 Test'
