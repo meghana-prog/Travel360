@@ -5,7 +5,16 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+
 - script: |
-    echo "Hello Travel360 - Version 2"
-    echo "My first Azure Pipeline is running"
-  displayName: 'Run Travel360 Test'
+    python --version
+    python -m pip install --upgrade pip
+    pip install dbt-snowflake
+    dbt --version
+  displayName: 'Install dbt'
+
+- script: |
+    cd travel360_dbt
+    echo "Travel360 dbt project"
+    ls -la
+  displayName: 'Check dbt Project'
