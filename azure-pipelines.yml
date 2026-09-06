@@ -14,7 +14,6 @@ steps:
   displayName: 'Install dbt'
 
 - script: |
-    cd travel360_dbt
-    echo "Travel360 dbt project"
-    ls -la
-  displayName: 'Check dbt Project'
+    echo "Database: $(database_name)"
+    echo "Environment: $(environment)"
+  displayName: 'Show Library Variables'
