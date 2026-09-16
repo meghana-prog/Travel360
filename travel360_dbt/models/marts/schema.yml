@@ -1,0 +1,31 @@
+version: 2
+
+models:
+
+  - name: mart_customer_bookings
+    description: "Customer booking data for analytics."
+    columns:
+      - name: booking_id
+        tests:
+          - not_null
+
+  - name: mart_flight_bookings
+    description: "Flight booking data for analytics."
+    columns:
+      - name: booking_id
+        tests:
+          - not_null
+
+  - name: mart_hotel_bookings
+    description: "Hotel booking data for analytics."
+    columns:
+      - name: booking_id
+        tests:
+          - not_null
+
+  - name: mart_package_bookings
+    description: "Package booking data for analytics."
+    columns:
+      - name: booking_id
+        tests:
+          - not_null

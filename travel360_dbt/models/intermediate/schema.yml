@@ -1,0 +1,32 @@
+
+version: 2
+
+models:
+
+  - name: int_customer_bookings
+    description: "Customer booking information."
+    columns:
+      - name: booking_id
+        tests:
+          - not_null
+
+  - name: int_booking_flights
+    description: "Booking information combined with flight details."
+    columns:
+      - name: booking_id
+        tests:
+          - not_null
+
+  - name: int_booking_hotels
+    description: "Booking information combined with hotel details."
+    columns:
+      - name: booking_id
+        tests:
+          - not_null
+
+  - name: int_package_bookings
+    description: "Package booking information combined with package, agent, and customer details."
+    columns:
+      - name: booking_id
+        tests:
+          - not_null

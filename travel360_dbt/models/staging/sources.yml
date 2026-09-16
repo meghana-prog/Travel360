@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: travel360
+    database: TRAVEL360_DEV
+    schema: RAW
+    tables:
+      - name: customers
+      - name: destinations
+      - name: flights
+      - name: hotels
+      - name: bookings
+      - name: payments
+      - name: travel_agents
+      - name: packages
+      - name: package_bookings

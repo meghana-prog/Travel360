@@ -1,19 +1,25 @@
-with customers as (
+{{ config(materialized='table') }}
 
-    select * from (
-        values
-            ('C001', 'Meghana', 'Boddu', 'MEGHANA@EMAIL.COM', 'India'),
-            ('C002', 'Rahul', 'Patil', 'rahul@email.com', 'India'),
-            ('C003', 'Sneha', 'Sharma', 'SNEHA@EMAIL.COM', 'India'),
-            ('C004', 'Amit', 'Joshi', 'amit@email.com', 'India')
-    ) as t(customer_id, first_name, last_name, email, country)
+WITH source_data AS (
+
+    SELECT *
+    FROM {{ source('travel360', 'customers') }}
+
+),
+
+cleaned_data AS (
+
+    SELECT
+        TRIM(customer_id) AS customer_id,
+        TRIM(first_name) AS first_name,
+        TRIM(last_name) AS last_name,
+        TRIM(email) AS email,
+        TRIM(phone) AS phone,
+        TRIM(city) AS city,
+        TRIM(country) AS country
+    FROM source_data
 
 )
 
-select
-    trim(customer_id) as customer_id,
-    trim(first_name) as first_name,
-    trim(last_name) as last_name,
-    lower(trim(email)) as email,
-    upper(trim(country)) as country
-from customers
+SELECT *
+FROM cleaned_data
