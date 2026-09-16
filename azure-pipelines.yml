@@ -1,20 +1,52 @@
 trigger:
 - master
 
-pool:
-  vmImage: ubuntu-latest
+stages:
 
-steps:
+# =========================
+# CI
+# =========================
+- stage: CI
+  displayName: 'CI - Build and Check'
 
-- script: |
-    python --version
-    python -m pip install --upgrade pip
-    pip install dbt-snowflake
-    dbt --version
-  displayName: 'Install dbt'
+  jobs:
+  - job: Build
+    pool:
+      vmImage: ubuntu-latest
 
-- script: |
-    cd travel360_dbt
-    echo "Travel360 dbt project"
-    ls -la
-  displayName: 'Check dbt Project'
+    steps:
+    - script: |
+        python --version
+        python -m pip install --upgrade pip
+        pip install dbt-snowflake
+        dbt --version
+      displayName: 'Install dbt'
+
+    - script: |
+        echo "Database: $(database_name)"
+        echo "Environment: $(environment)"
+      displayName: 'Show Library Variables'
+
+
+# =========================
+# CD
+# =========================
+- stage: CD
+  displayName: 'CD - Deploy'
+
+  dependsOn: CI
+  condition: succeeded()
+
+  jobs:
+  - deployment: DeployToDevelopment
+    displayName: 'Deploy to Development'
+    environment: Development
+
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: |
+              echo "Deploying to Development Environment"
+              echo "CD deployment successful"
+            displayName: 'Deploy'
