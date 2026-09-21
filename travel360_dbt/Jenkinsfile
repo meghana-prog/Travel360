@@ -11,19 +11,19 @@ pipeline {
 
         stage('DBT Debug') {
             steps {
-                bat 'dbt debug'
+                bat 'D:\\Travel360\\Project\\travel360dbt\\.venv\\Scripts\\dbt.exe debug --project-dir travel360_dbt'
             }
         }
 
         stage('DBT Run') {
             steps {
-                bat 'dbt run'
+                bat 'D:\\Travel360\\Project\\travel360dbt\\.venv\\Scripts\\dbt.exe run --project-dir travel360_dbt'
             }
         }
 
         stage('DBT Test') {
             steps {
-                bat 'dbt test'
+                bat 'D:\\Travel360\\Project\\travel360dbt\\.venv\\Scripts\\dbt.exe test --project-dir travel360_dbt'
             }
         }
     }
