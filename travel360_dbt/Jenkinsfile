@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('DBT Debug') {
+            steps {
+                bat 'dbt debug'
+            }
+        }
+
+        stage('DBT Run') {
+            steps {
+                bat 'dbt run'
+            }
+        }
+
+        stage('DBT Test') {
+            steps {
+                bat 'dbt test'
+            }
+        }
+    }
+}
