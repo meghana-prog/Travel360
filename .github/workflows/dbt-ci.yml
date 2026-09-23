@@ -65,3 +65,7 @@ jobs:
           SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
           SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
         run: dbt debug
+
+      - name: Parse dbt project
+        working-directory: ./travel360_dbt
+        run: dbt parse
