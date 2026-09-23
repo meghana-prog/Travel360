@@ -1,0 +1,19 @@
+databaseType = "Snowflake"
+id = "ef8819db-c8d9-4199-b5e8-09e74ae81d2f"
+name = "Travel3601"
+
+[flyway]
+callbackLocations = [ "filesystem:callbacks" ]
+locations = [ "filesystem:migrations" ]
+mixed = true
+outOfOrder = true
+schemaModelLocation = "schema-model"
+validateMigrationNaming = true
+
+[flywayDesktop]
+developmentEnvironment = "development"
+shadowEnvironment = "shadow"
+showDeploymentDecision = true
+
+[redgateCompare]
+filterFile = "filter.rgf"

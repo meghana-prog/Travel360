@@ -1,0 +1,35 @@
+databaseType = "Snowflake"
+id = "b5d469a1-b738-4b3f-a991-25203028762c"
+name = "Travel360"
+
+[flyway]
+callbackLocations = [ "filesystem:callbacks" ]
+locations = [ "filesystem:migrations" ]
+mixed = true
+outOfOrder = true
+schemaModelLocation = "schema-model"
+validateMigrationNaming = true
+
+[flywayDesktop]
+developmentEnvironment = "development"
+shadowEnvironment = "shadow"
+showDeploymentDecision = true
+
+[redgateCompare]
+filterFile = "filter.rgf"
+
+[environments.travel360_dev]
+url = "jdbc:snowflake://QPOKADS-TE85734.snowflakecomputing.com/?db=TRAVEL360_DEV&warehouse=TRAVEL360_DEV_WH&role=ACCOUNTADMIN&schema=STAGING&JDBC_QUERY_RESULT_FORMAT=JSON"
+displayName = "Travel360 DEV Snowflake"
+
+[environments.travel360_sandbox]
+url = "jdbc:snowflake://QPOKADS-TE85734.snowflakecomputing.com/?db=TRAVEL360_SANDBOX&warehouse=TRAVEL360_WH&role=ACCOUNTADMIN&schema=STAGING&JDBC_QUERY_RESULT_FORMAT=JSON"
+displayName = "Travel360 SANDBOX Snowflake"
+
+[environments.travel360_preprod]
+url = "jdbc:snowflake://QPOKADS-TE85734.snowflakecomputing.com/?db=TRAVEL360_PREPROD&warehouse=TRAVEL360_WH&role=ACCOUNTADMIN&schema=STAGING&JDBC_QUERY_RESULT_FORMAT=JSON"
+displayName = "Travel360 PRE-PROD Snowflake"
+
+[environments.travel360_prod]
+url = "jdbc:snowflake://QPOKADS-TE85734.snowflakecomputing.com/?db=TRAVEL360_PROD&warehouse=TRAVEL360_PROD_WH&role=ACCOUNTADMIN&schema=STAGING&JDBC_QUERY_RESULT_FORMAT=JSON"
+displayName = "Travel360 PROD Snowflake"
