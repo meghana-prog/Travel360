@@ -1,0 +1,71 @@
+name: Travel360 dbt CD
+
+on:
+  workflow_dispatch:
+
+jobs:
+  dbt-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dbt
+        run: |
+          pip install dbt-core==1.12.3
+          pip install dbt-snowflake==1.12.0
+
+      - name: Create dbt profiles.yml
+        working-directory: ./travel360_dbt
+        env:
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+          SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
+        run: |
+          mkdir -p ~/.dbt
+
+          cat > ~/.dbt/profiles.yml <<EOF
+          travel360_dbt:
+            target: dev
+            outputs:
+              dev:
+                type: snowflake
+                account: $SNOWFLAKE_ACCOUNT
+                user: $SNOWFLAKE_USER
+                password: $SNOWFLAKE_PASSWORD
+                role: $SNOWFLAKE_ROLE
+                warehouse: $SNOWFLAKE_WAREHOUSE
+                database: $SNOWFLAKE_DATABASE
+                schema: $SNOWFLAKE_SCHEMA
+                threads: 4
+          EOF
+
+      - name: Install dbt packages
+        working-directory: ./travel360_dbt
+        run: dbt deps
+
+      - name: Check dbt connection
+        working-directory: ./travel360_dbt
+        run: dbt debug
+
+      - name: Parse dbt project
+        working-directory: ./travel360_dbt
+        run: dbt parse
+
+      - name: Compile dbt project
+        working-directory: ./travel360_dbt
+        run: dbt compile
+
+      - name: Deploy dbt project to DEV
+        working-directory: ./travel360_dbt
+        run: dbt build
