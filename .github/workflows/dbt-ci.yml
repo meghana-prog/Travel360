@@ -73,3 +73,7 @@ jobs:
       - name: Parse dbt project
         working-directory: ./travel360_dbt
         run: dbt parse
+
+      - name: Compile dbt project
+        working-directory: ./travel360_dbt
+        run: dbt compile
