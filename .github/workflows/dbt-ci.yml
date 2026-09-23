@@ -77,3 +77,7 @@ jobs:
       - name: Compile dbt project
         working-directory: ./travel360_dbt
         run: dbt compile
+
+      - name: Run dbt tests
+        working-directory: ./travel360_dbt
+        run: dbt test
